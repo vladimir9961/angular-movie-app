@@ -1,0 +1,17 @@
+<div style="display: flex; flex-wrap: wrap; gap: 1rem; width: 100%; justify-content: center;">
+    <div style="width: 200px; height: 300px; margin: 0; padding: 0;" class="container" *ngFor="let movie of movies">
+        <div class="card bg-dark text-white" style="border: none;">
+            <img style="filter: brightness(80%); width: 200px; height: 300px;"
+                src="https://www.themoviedb.org/t/p/w220_and_h330_face{{movie.backdrop_path}}" class="card-img"
+                loading="lazy" alt="{{movie.title}}">
+            <div class="card-img-overlay">
+                <button (click)='display(movie.id)'>clik</button>
+                <div class="info">
+                    <p>{{movie.title}}</p>
+                    <p class="card-text">{{movie.release_date | slice:0:4}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<router-outlet></router-outlet>
