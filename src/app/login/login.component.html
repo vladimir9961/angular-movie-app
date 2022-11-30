@@ -1,0 +1,36 @@
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
+    Login
+</button>
+
+<div class="modal fade " id="loginModal" tabindex="-1" aria-labelledby="Login" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form [formGroup]="loginForm" (ngSubmit)="submitLogin()">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="Login">Login</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group flex-nowrap">
+                        <input type="text" class="form-control" placeholder="Username" aria-label="Username"
+                            aria-describedby="addon-wrapping" formControlName="username" required>
+                        <br>
+                    </div>
+                    <span *ngIf="username && username.invalid && username.touched" class="error text-danger">Username
+                        field required</span>
+                    <br>
+                    <div class="input-group flex-nowrap">
+                        <input type="password" class="form-control" placeholder="Password" aria-label="Password"
+                            aria-describedby="addon-wrapping" formControlName="password" required>
+                    </div>
+                    <span *ngIf="username && username.invalid && username.touched" class="error text-danger">Password
+                        field required</span>
+                </div>
+                <div class="modal-footer">
+
+                    <button [disabled]="loginForm.invalid" type="submit" class="btn btn-primary">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

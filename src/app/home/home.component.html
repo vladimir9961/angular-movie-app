@@ -5,7 +5,7 @@
                 src="https://www.themoviedb.org/t/p/w220_and_h330_face{{movie.backdrop_path}}" class="card-img"
                 loading="lazy" alt="{{movie.title}}">
             <div class="card-img-overlay">
-                <button (click)='display(movie.id)'>clik</button>
+                <button (click)='display({id: movie.id, type: "movie"})'>click</button>
                 <div class="info">
                     <p>{{movie.title}}</p>
                     <p class="card-text">{{movie.release_date | slice:0:4}}</p>
