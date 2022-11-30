@@ -16,7 +16,7 @@ export class LoginService {
 
     return
   }
-  //If user exist and token is validate get session
+  //If user exist and token is validate get session 123
   getSession(request_token) {
     this.http.post('https://api.themoviedb.org/3/authentication/session/new?api_key=3b5caee89d6f1ccfb03cb837adb8e9e1', request_token)
       .subscribe((res) => {
