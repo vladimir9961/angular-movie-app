@@ -10,7 +10,9 @@ import { MovieComponent } from './movie/movie.component';
 import { TvComponent } from './tv/tv.component';
 import { HomeComponent } from './home/home.component';
 import { DisplayComponent } from './display/display.component';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './components/navbar/login/login.component';
+import { NavComponent } from './components/navbar/nav.component';
+import { IsLogedComponent } from './components/navbar/loged/is-loged/is-loged.component';
 
 @NgModule({
   imports: [
@@ -18,7 +20,7 @@ import { LoginComponent } from './login/login.component';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
   ],
   declarations: [
     AppComponent,
@@ -27,6 +29,8 @@ import { LoginComponent } from './login/login.component';
     HomeComponent,
     DisplayComponent,
     LoginComponent,
+    NavComponent,
+    IsLogedComponent,
 
   ],
   providers: [],
