@@ -13,12 +13,13 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getUserList()
+    this.getNowPlayingMovies()
   }
-  display(props: number) {
-    this.router.navigate(['display/movie/', props]), { relativeTo: this.route }
+  //Redirect to display page on click to display movie/tv
+  display(props: any) {
+    this.router.navigate(['display/', `${props.type}`, `${props.id}`]), { relativeTo: this.route }
   }
-  getUserList() {
+  getNowPlayingMovies() {
     this.httpClient.get('https://api.themoviedb.org/3/movie/now_playing?api_key=3b5caee89d6f1ccfb03cb837adb8e9e1&language=en-US')
       .subscribe((data: any) => {
         console.log(data.results)

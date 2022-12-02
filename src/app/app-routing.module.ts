@@ -9,7 +9,7 @@ import { TvComponent } from './tv/tv.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'display/movie/:movieId', component: DisplayComponent },
+  { path: 'display/:type/:id', component: DisplayComponent },
   { path: 'tv', component: TvComponent },
   { path: 'movie', component: MovieComponent }
 ];
