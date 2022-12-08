@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 import { LoginService } from './service/login.service';
 @Component({
   selector: 'app-login',
@@ -16,7 +15,7 @@ export class LoginComponent implements OnInit {
   error: string;
   saveUser = false;
   show = false;
-  constructor(private loginService: LoginService, private http: HttpClient) { }
+  constructor(private loginService: LoginService) { }
   get username() {
     return this.loginForm.get('username');
   }
@@ -47,34 +46,22 @@ export class LoginComponent implements OnInit {
     }
   }
   submitLogin() {
-    interface User {
-      username?: string,
-      password?: string,
-      request_token?: string
-    }
+    let username = this.loginForm.get('username')?.value;
+    let password = this.loginForm.get('password')?.value;
     //Handle login
-    this.http.get('https://api.themoviedb.org/3/authentication/token/new?api_key=3b5caee89d6f1ccfb03cb837adb8e9e1')
-      .subscribe((data: User) => {
-        console.log(this.loginForm.get('username')?.value,
-          this.loginForm.get('password')?.value)
-        this.loginService.validateToken(
-          this.loginForm.get('username')?.value,
-          this.loginForm.get('password')?.value,
-          data.request_token
-        ).subscribe(
-          (res: any) => {
-            (err) => {
-              this.error = err.error.status_message
-            }
-            this.loginService.getSession({ "request_token": res.request_token })
-              .subscribe((session: any) => {
-                localStorage.setItem('session_id', JSON.stringify(session.session_id));
-                console.log(session)
+    this.loginService.requestToken()
+      .subscribe((res: any) => {
+        this.loginService.validateToken(username, password, res.request_token
+        )
+          .subscribe((data: any) => {
+            this.loginService.getSession({ "request_token": data.request_token })
+              .subscribe(res => {
+                localStorage.setItem('session_id', JSON.stringify(res.session_id));
+                window.location.href = ""
               })
           },
-          (err) => { this.error = err.error.status_message },
-        )
-
+            (err) => { this.error = err.error.status_message }
+          )
       })
   }
 }

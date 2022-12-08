@@ -13,6 +13,9 @@ import { DisplayComponent } from './display/display.component';
 import { LoginComponent } from './components/navbar/login/login.component';
 import { NavComponent } from './components/navbar/nav.component';
 import { IsLogedComponent } from './components/navbar/loged/is-loged/is-loged.component';
+import { InteractionsModule } from './components/interactions/interactions.module';
+import { LoginService } from './components/navbar/login/service/login.service';
+import { CardsComponent } from './components/cards/cards.component';
 
 @NgModule({
   imports: [
@@ -21,6 +24,7 @@ import { IsLogedComponent } from './components/navbar/loged/is-loged/is-loged.co
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    InteractionsModule,
   ],
   declarations: [
     AppComponent,
@@ -31,9 +35,10 @@ import { IsLogedComponent } from './components/navbar/loged/is-loged/is-loged.co
     LoginComponent,
     NavComponent,
     IsLogedComponent,
+    CardsComponent,
 
   ],
-  providers: [],
+  providers: [LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

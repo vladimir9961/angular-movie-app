@@ -1,0 +1,29 @@
+<div style="width: 200px; height: 300px; margin: 0; padding: 0;" class="container" *ngFor="let movie of FETCHED_DATA">
+    <div class="card bg-dark text-white" style="border: none;">
+        <div *ngIf="userExist" class="btn-group" style="position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    ">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuClickableInside"
+                data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false"
+                (click)="passIdToHolder(movie.id)">
+                Clickable inside
+            </button>
+            <app-holder [IdOfItem]="checkedId" [TYPE_OF_FETCHED_DATA]="TYPE_OF_FETCHED_DATA"></app-holder>
+        </div>
+        <img style="filter: brightness(80%); width: 200px; height: 300px;"
+            src="https://www.themoviedb.org/t/p/w220_and_h330_face{{movie.backdrop_path}}" class="card-img"
+            loading="lazy" alt="{{movie.title ? movie.title : movie.original_name}}">
+        <div class="card-img-overlay">
+            <button (click)='display({id: movie.id, type: "movie"})'>click</button>
+            <div class="info">
+                <p>{{movie.title ? movie.title : movie.original_name}}</p>
+                <p class="card-text">{{movie.release_date ? (movie.release_date | date: 'yyyy') :
+                    (movie.first_air_date |
+                    date: 'yyyy')}}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

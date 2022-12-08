@@ -13,8 +13,8 @@ export class DisplayComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute, private httpClient: HttpClient) { }
 
   ngOnInit(): void {
-    let numberValue = Number(this.activatedRoute.snapshot.paramMap.get('id'));
-    this.getNowPlayingMovies(numberValue, this.activatedRoute.snapshot.paramMap.get('type'))
+    let getIdFromUrl = Number(this.activatedRoute.snapshot.paramMap.get('id'));
+    this.getNowPlayingMovies(getIdFromUrl, this.activatedRoute.snapshot.paramMap.get('type'))
   }
   getNowPlayingMovies(id, type) {
     this.httpClient.get(`https://api.themoviedb.org/3/${type}/${id}?api_key=3b5caee89d6f1ccfb03cb837adb8e9e1&language=en-US`)

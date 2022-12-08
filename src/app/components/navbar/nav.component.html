@@ -22,8 +22,7 @@
         </div>
     </div>
     <div>
-
-        <app-is-loged></app-is-loged>
-        <app-login></app-login>
+        <app-is-loged *ngIf="isLogged"></app-is-loged>
+        <app-login *ngIf="!isLogged"></app-login>
     </div>
 </nav>
