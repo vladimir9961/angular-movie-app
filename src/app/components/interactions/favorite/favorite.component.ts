@@ -19,6 +19,7 @@ export class FavoriteComponent implements OnInit, OnChanges {
     const changed = changes['IdOfItem']
     if (changed.currentValue != undefined && changed.firstChange === false) {
       this.getIdFavorite(this.IdOfItem)
+      console.log(changed, 'Change happend')
     }
   }
   //On click add or remove item from favorite list
