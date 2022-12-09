@@ -19,7 +19,7 @@ export class DisplayComponent implements OnInit {
   getNowPlayingMovies(id, type) {
     this.httpClient.get(`https://api.themoviedb.org/3/${type}/${id}?api_key=3b5caee89d6f1ccfb03cb837adb8e9e1&language=en-US`)
       .subscribe((data: any) => {
-        // console.log(data)
+        console.log(data)
       })
   }
 }

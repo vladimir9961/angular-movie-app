@@ -9,9 +9,9 @@
     <div class="row">
         <div style=" overflow:hidden;">
             <app-cards [FETCHED_DATA]="FETCHED_DATA" [TYPE_OF_FETCHED_DATA]="TYPE_OF_FETCHED_DATA"
-                style="display: flex; gap: 1rem; overflow-x: scroll;"></app-cards>
+                style="display: flex; gap: 1rem; overflow-x: scroll; overflow-y: hidden;"></app-cards>
         </div>
     </div>
-
 </div>
+<app-alert></app-alert>
 <router-outlet></router-outlet>

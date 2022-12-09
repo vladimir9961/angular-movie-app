@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { CallAlertService } from '../../alert/call.alert.service';
+import { InteractionsService } from '../interactions.service';
 
 @Component({
   selector: 'app-favorite',
@@ -9,45 +10,45 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class FavoriteComponent implements OnInit, OnChanges {
-  accId: number;
-  sessId: string;
-  constructor(private http: HttpClient, private activatedRoute: ActivatedRoute) { }
+  @Input() Name: string;
   @Input() itemExists: boolean;
   @Input() IdOfItem: number;
   @Input() TYPE_OF_FETCHED_DATA: string;
-  ngOnChanges(changes: SimpleChanges) {
-    const changed = changes['IdOfItem']
-    if (changed.currentValue != undefined && changed.firstChange === false) {
-      this.getIdFavorite(this.IdOfItem)
-      console.log(changed, 'Change happend')
-    }
-  }
-  //On click add or remove item from favorite list
-  addRemoveFav() {
-    let media = {
-      media_type: this.TYPE_OF_FETCHED_DATA,
-      media_id: this.IdOfItem,
-      favorite: !this.itemExists
-    }
-    this.http.post(`https://api.themoviedb.org/3/account/${this.accId}/favorite?api_key=3b5caee89d6f1ccfb03cb837adb8e9e1&session_id=${this.sessId}`, media).subscribe((res: any) => {
-      if (res.success == true) {
-        this.itemExists = !this.itemExists
-        console.log(res)
-      }
-    })
-  }
-  //On component mount get user session and account id from local storage and update variables
+  constructor(private activatedRoute: ActivatedRoute, private interactions: InteractionsService, private callalert: CallAlertService) { }
+  //On component mount if on /Display page get id from url
   ngOnInit(): void {
-    this.accId = parseInt(localStorage.getItem('account_id'));
-    this.sessId = JSON.parse(localStorage.getItem('session_id'));
     let getIdFromUrl = Number(this.activatedRoute.snapshot.paramMap.get('id'));
     if (getIdFromUrl) {
       this.getIdFavorite(getIdFromUrl)
     }
   }
+  //If changes accure user clicked dropdwon button and inputs value updated
+  ngOnChanges(changes: SimpleChanges) {
+    const changed = changes['IdOfItem']
+    if (changed.currentValue != undefined && changed.firstChange === false) {
+      this.getIdFavorite(this.IdOfItem)
+    }
+  }
+  //On click add or remove item from favorite list
+  addRemoveFav() {
+    this.interactions.add_or_remove_favorite(this.TYPE_OF_FETCHED_DATA, this.IdOfItem, this.itemExists)
+      .subscribe((res: any) => {
+        if (res.success == true) {
+          this.itemExists = !this.itemExists
+          if (res.status_code === 13) {
+            this.callalert.alertType = "danger"
+            this.callalert.textMessage = `"${this.Name}" removed from favorite`;
+          } else if (res.status_code === 1) {
+            this.callalert.textMessage = `"${this.Name}" added to favorite`;
+            this.callalert.alertType = "success"
+          }
+          this.callalert.displayAlert.next(true);
+        }
+      })
+  }
   //Filter object to see if item exist or not and update the movieTvExists variable true/false
   getIdFavorite(id: number) {
-    this.checkInFavorite().subscribe((res: any) => {
+    this.interactions.checkInFavorite(this.TYPE_OF_FETCHED_DATA).subscribe((res: any) => {
       const movieTvExists = res.results.filter(favoriteObject => favoriteObject.id === id);
       if (movieTvExists[0] != undefined) {
         this.itemExists = true
@@ -55,9 +56,5 @@ export class FavoriteComponent implements OnInit, OnChanges {
         this.itemExists = false
       }
     })
-  }
-  //Checking if Movie/Tv exist in favorite list
-  checkInFavorite() {
-    return this.http.get(`https://api.themoviedb.org/3/account/${this.accId}/favorite/movies?api_key=3b5caee89d6f1ccfb03cb837adb8e9e1&session_id=${this.sessId}&language=en-US&sort_by=created_at.asc&page=1`)
   }
 }

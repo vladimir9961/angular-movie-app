@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
         )
           .subscribe((data: any) => {
             this.loginService.getSession({ "request_token": data.request_token })
-              .subscribe(res => {
+              .subscribe((res: any) => {
                 localStorage.setItem('session_id', JSON.stringify(res.session_id));
                 window.location.href = ""
               })

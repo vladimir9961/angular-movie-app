@@ -6,16 +6,13 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./holder.component.scss']
 })
 export class HolderComponent implements OnInit {
-  accId: number;
-  sessId: string;
-  itemExists: boolean;
+  @Input() Name: string;
   @Input() IdOfItem: number;
   @Input() TYPE_OF_FETCHED_DATA: string;
 
   constructor() { }
   ngOnInit(): void {
-    this.accId = parseInt(localStorage.getItem('account_id'));
-    this.sessId = JSON.parse(localStorage.getItem('session_id'))
+
   }
 
 }

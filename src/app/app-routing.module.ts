@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DisplayComponent } from './display/display.component';
+import { IsLoggedGuard } from './is.logged.guard';
 
 import { MovieComponent } from './movie/movie.component';
 import { TvComponent } from './tv/tv.component';
@@ -22,7 +23,8 @@ const routes: Routes = [
   {
     path: 'display/:type/:id',
     component: DisplayComponent,
-    data: { userExists: userHere() }
+    data: { userExists: userHere() },
+    canActivate: [IsLoggedGuard]
   },
   {
     path: 'tv',

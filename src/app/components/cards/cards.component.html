@@ -7,10 +7,11 @@
     ">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuClickableInside"
                 data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false"
-                (click)="passIdToHolder(movie.id)">
-                Clickable inside
+                (click)="passIdToHolder(movie.id)" id="dorpdown-button">
+                <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
             </button>
-            <app-holder [IdOfItem]="checkedId" [TYPE_OF_FETCHED_DATA]="TYPE_OF_FETCHED_DATA"></app-holder>
+            <app-holder [IdOfItem]="checkedId" [Name]="movie.title || movie.original_name"
+                [TYPE_OF_FETCHED_DATA]="TYPE_OF_FETCHED_DATA"></app-holder>
         </div>
         <img style="filter: brightness(80%); width: 200px; height: 300px;"
             src="https://www.themoviedb.org/t/p/w220_and_h330_face{{movie.backdrop_path}}" class="card-img"

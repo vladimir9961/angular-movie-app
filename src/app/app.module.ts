@@ -16,6 +16,7 @@ import { IsLogedComponent } from './components/navbar/loged/is-loged/is-loged.co
 import { InteractionsModule } from './components/interactions/interactions.module';
 import { LoginService } from './components/navbar/login/service/login.service';
 import { CardsComponent } from './components/cards/cards.component';
+import { AlertComponent } from './components/alert/alert.component';
 
 @NgModule({
   imports: [
@@ -36,6 +37,7 @@ import { CardsComponent } from './components/cards/cards.component';
     NavComponent,
     IsLogedComponent,
     CardsComponent,
+    AlertComponent,
 
   ],
   providers: [LoginService],
