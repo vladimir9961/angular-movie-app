@@ -18,14 +18,16 @@ export class FavoriteComponent implements OnInit, OnChanges {
   //On component mount if on /Display page get id from url
   ngOnInit(): void {
     let getIdFromUrl = Number(this.activatedRoute.snapshot.paramMap.get('id'));
+    let type = (this.activatedRoute.snapshot.paramMap.get('type'));
     if (getIdFromUrl) {
+      this.TYPE_OF_FETCHED_DATA = type
       this.getIdFavorite(getIdFromUrl)
     }
   }
   //If changes accure user clicked dropdwon button and inputs value updated
   ngOnChanges(changes: SimpleChanges) {
     const changed = changes['IdOfItem']
-    if (changed.currentValue != undefined && changed.firstChange === false) {
+    if (changed?.currentValue != undefined && changed.firstChange === false) {
       this.getIdFavorite(this.IdOfItem)
     }
   }
@@ -48,13 +50,16 @@ export class FavoriteComponent implements OnInit, OnChanges {
   }
   //Filter object to see if item exist or not and update the movieTvExists variable true/false
   getIdFavorite(id: number) {
-    this.interactions.checkInFavorite(this.TYPE_OF_FETCHED_DATA).subscribe((res: any) => {
-      const movieTvExists = res.results.filter(favoriteObject => favoriteObject.id === id);
-      if (movieTvExists[0] != undefined) {
-        this.itemExists = true
-      } else {
-        this.itemExists = false
-      }
-    })
+    this.interactions.checkInFavorite(this.TYPE_OF_FETCHED_DATA).subscribe(
+      (res: any) => {
+        const movieTvExists = res.results.filter(favoriteObject => favoriteObject.id === id);
+        if (movieTvExists[0] != undefined) {
+          this.itemExists = true
+        } else {
+          this.itemExists = false
+        }
+      },
+
+      (err => { console.log(err) }))
   }
 }

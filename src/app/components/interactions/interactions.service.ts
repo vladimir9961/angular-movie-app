@@ -1,7 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpHeaders } from '@angular/common/http';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -55,5 +53,26 @@ export class InteractionsService {
       media_id: movieId
     }
     return this.http.post(`${this.api_host}list/${listId}/add_item?api_key=${this.api_key}&session_id=${this.sessId}`, toList)
+  }
+  //Get rated movies
+  getAllRatedMovies(type) {
+    return this.http.get(`${this.api_host}account/${this.accId}/rated/${type}?api_key=${this.api_key}&language=en-US&session_id=${this.sessId}&sort_by=created_at.asc&page=1`)
+  }
+  //User rated movie/tv
+  on_rate_change(id, value, type) {
+    if (type === "movies") {
+      type = "movie"
+    }
+    let rate_value = {
+      "value": value
+    }
+    return this.http.post(`${this.api_host}${type}/${id}/rating?api_key=${this.api_key}&session_id=${this.sessId}`, rate_value)
+  }
+  //User deleted rate
+  delete_rate(id, type) {
+    if (type === "movies") {
+      type = "movie"
+    }
+    return this.http.delete(`${this.api_host}${type}/${id}/rating?api_key=${this.api_key}&session_id=${this.sessId}`)
   }
 }

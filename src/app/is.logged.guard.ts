@@ -1,16 +1,28 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
-import { LoginService } from './components/navbar/login/service/login.service'
 @Injectable({
   providedIn: 'root'
 })
-export class IsLoggedGuard implements CanActivate {
-  constructor(private loginService: LoginService) { }
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.loginService.isLoggin;
+export class IsLoggedGuard implements CanActivateChild {
+  constructor() { }
+  isAuthenticated() {
+    if (localStorage.getItem('session_id')) {
+      return true;
+    } else {
+      return false
+    }
   }
+  // canActivate(
+  //   next: ActivatedRouteSnapshot,
+  //   state: RouterStateSnapshot): boolean {
+  //   console.log('CanActivate called');
+  //   console.log(this.isAuthenticated(), 'ovde');
 
+  //   return this.isAuthenticated();
+  // }
+  canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    return this.isAuthenticated()
+  }
 }
+

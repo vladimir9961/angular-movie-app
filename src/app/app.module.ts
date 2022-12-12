@@ -17,6 +17,7 @@ import { InteractionsModule } from './components/interactions/interactions.modul
 import { LoginService } from './components/navbar/login/service/login.service';
 import { CardsComponent } from './components/cards/cards.component';
 import { AlertComponent } from './components/alert/alert.component';
+import { IsLoggedGuard } from './is.logged.guard';
 
 @NgModule({
   imports: [
@@ -40,7 +41,7 @@ import { AlertComponent } from './components/alert/alert.component';
     AlertComponent,
 
   ],
-  providers: [LoginService],
+  providers: [LoginService, IsLoggedGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

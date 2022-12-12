@@ -37,7 +37,6 @@ export class ListsComponent implements OnInit, OnDestroy {
         err => {
           this.callalert.alertType = "danger"
           this.callalert.textMessage = `"${this.Name}" alredy exists on "${lists_name}"`;
-          console.log('ne post')
           this.callalert.displayAlert.next(true);
         }
       )

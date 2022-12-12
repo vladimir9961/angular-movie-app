@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-
+import { PagesService } from '../pages.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -8,29 +7,44 @@ import { HttpClient } from '@angular/common/http';
 })
 export class HomeComponent implements OnInit {
   // Data for child card component to send
-  FETCHED_DATA: any;
-  TYPE_OF_FETCHED_DATA: string;
+  FETCHED_DATA_POPULAR: any;
+  FETCHED_DATA_TOP_RATED: any;
+  TYPE_OF_FETCHED_DATA_POPULAR: string;
+  TYPE_OF_FETCHED_DATA_TOP_RATED: string;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private homeservice: PagesService) { }
 
   //On first initialisation fetch movies
   ngOnInit(): void {
-    this.getNowPlayingMovies('movie');
+    this.getPopular('movie');
+    this.getTopRated('movie');
   }
   //Toggle cards within container Movie/Tv
   toogleMovieTv(event) {
-    this.getNowPlayingMovies(event.target.checked ? 'tv' : 'movie')
+    this.getPopular(event.target.checked ? 'tv' : 'movie')
+  }
+  toogleMovieTvTopRated(ovaj) {
+    this.getTopRated(ovaj.target.checked ? 'tv' : 'movie')
   }
   //Fetch movies and tv's
-  getNowPlayingMovies(prop) {
-    this.httpClient.get(`https://api.themoviedb.org/3/${prop}/popular?api_key=3b5caee89d6f1ccfb03cb837adb8e9e1&language=en-US`)
-      .subscribe((data: any) => {
-        if (prop === "movie") {
-          this.TYPE_OF_FETCHED_DATA = "movies"
-        } else {
-          this.TYPE_OF_FETCHED_DATA = prop
-        }
-        this.FETCHED_DATA = data.results.slice(0, 9)
-      })
+  getPopular(prop) {
+    this.homeservice.getDataHomePage(prop, 'popular').subscribe((res: any) => {
+      if (prop === "movie") {
+        this.TYPE_OF_FETCHED_DATA_POPULAR = "movies"
+      } else {
+        this.TYPE_OF_FETCHED_DATA_POPULAR = prop
+      }
+      this.FETCHED_DATA_POPULAR = res.results.slice(0, 9)
+    })
+  }
+  getTopRated(prop) {
+    this.homeservice.getDataHomePage(prop, 'top_rated').subscribe((res: any) => {
+      if (prop === "movie") {
+        this.TYPE_OF_FETCHED_DATA_TOP_RATED = "movies"
+      } else {
+        this.TYPE_OF_FETCHED_DATA_TOP_RATED = prop
+      }
+      this.FETCHED_DATA_TOP_RATED = res.results.slice(0, 9)
+    })
   }
 }

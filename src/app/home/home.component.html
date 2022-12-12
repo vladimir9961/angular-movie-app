@@ -1,15 +1,32 @@
 <div style=" width: 100%; justify-content: center;" class="container">
     <div class="row" style="display: flex;">
-        <label class="container">
-            <input type="checkbox" (click)="toogleMovieTv($event)" id="check">
-            <span></span>
-            <label class="shadow" for="check"></label>
-        </label>
+        <div style=" overflow:hidden;" class="wraper">
+            <div style="display: flex;">
+                <h1>Popular</h1>
+                <label class="switch">
+                    <input type="checkbox" (click)="toogleMovieTv($event)">
+                    <span class="slider"></span>
+                    <span class="text on">Movie</span>
+                    <span class="text off">Tv</span>
+                </label>
+            </div>
+            <app-cards [FETCHED_DATA]="FETCHED_DATA_POPULAR" [TYPE_OF_FETCHED_DATA]="TYPE_OF_FETCHED_DATA_POPULAR">
+            </app-cards>
+        </div>
     </div>
     <div class="row">
-        <div style=" overflow:hidden;">
-            <app-cards [FETCHED_DATA]="FETCHED_DATA" [TYPE_OF_FETCHED_DATA]="TYPE_OF_FETCHED_DATA"
-                style="display: flex; gap: 1rem; overflow-x: scroll; overflow-y: hidden;"></app-cards>
+        <div style=" overflow:hidden;" class="wraper">
+            <div style="display: flex;">
+                <h1>Top Rated</h1>
+                <label class="switch">
+                    <input type="checkbox" (click)="toogleMovieTvTopRated($event)">
+                    <span class="slider"></span>
+                    <span class="text on">Movie</span>
+                    <span class="text off">Tv</span>
+                </label>
+            </div>
+            <app-cards [FETCHED_DATA]="FETCHED_DATA_TOP_RATED"
+                [TYPE_OF_FETCHED_DATA]="TYPE_OF_FETCHED_DATA_TOP_RATED"></app-cards>
         </div>
     </div>
 </div>
