@@ -19,7 +19,7 @@ import { AlertComponent } from './components/alert/alert.component';
 import { IsLoggedGuard } from './is.logged.guard';
 import { PopularComponent } from './movie/displayMovies/popular.component';
 import { FiltersComponent } from './movie/filters/filters.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   imports: [
@@ -29,7 +29,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule,
     FormsModule,
     InteractionsModule,
-    BrowserAnimationsModule,
   ],
   declarations: [
     AppComponent,
