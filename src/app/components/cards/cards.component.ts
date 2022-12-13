@@ -1,11 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router'
 import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-cards',
   templateUrl: './cards.component.html',
-  styleUrls: ['./cards.component.scss']
+  styleUrls: ['./cards.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class CardsComponent implements OnInit {
   @Input() FETCHED_DATA: any;

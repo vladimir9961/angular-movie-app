@@ -7,7 +7,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { MovieComponent } from './movie/movie.component';
-import { TvComponent } from './tv/tv.component';
 import { HomeComponent } from './home/home.component';
 import { DisplayComponent } from './display/display.component';
 import { LoginComponent } from './components/navbar/login/login.component';
@@ -18,6 +17,9 @@ import { LoginService } from './components/navbar/login/service/login.service';
 import { CardsComponent } from './components/cards/cards.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { IsLoggedGuard } from './is.logged.guard';
+import { PopularComponent } from './movie/displayMovies/popular.component';
+import { FiltersComponent } from './movie/filters/filters.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   imports: [
@@ -27,11 +29,11 @@ import { IsLoggedGuard } from './is.logged.guard';
     ReactiveFormsModule,
     FormsModule,
     InteractionsModule,
+    BrowserAnimationsModule,
   ],
   declarations: [
     AppComponent,
     MovieComponent,
-    TvComponent,
     HomeComponent,
     DisplayComponent,
     LoginComponent,
@@ -39,7 +41,8 @@ import { IsLoggedGuard } from './is.logged.guard';
     IsLogedComponent,
     CardsComponent,
     AlertComponent,
-
+    PopularComponent,
+    FiltersComponent,
   ],
   providers: [LoginService, IsLoggedGuard],
   bootstrap: [AppComponent]

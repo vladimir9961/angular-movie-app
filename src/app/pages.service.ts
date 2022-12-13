@@ -21,4 +21,12 @@ export class PagesService {
   getCrewAndCast(id, type) {
     return this.http.get(`${this.apiHost}${type}/${id}/credits?api_key=${this.apiKey}&language=en-US`)
   }
+  //Movie/TV pages
+  getMoviesOrTvs(type, value, page) {
+    return this.http.get(`${this.apiHost}${type}/${value}?api_key=${this.apiKey}&language=en-US&page=${page}`)
+  }
+  //Get genres
+  getGenres(type) {
+    return this.http.get(`${this.apiHost}genre/${type}/list?api_key=${this.apiKey}&language=en-US`)
+  }
 }
